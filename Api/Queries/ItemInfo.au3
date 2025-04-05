@@ -271,13 +271,13 @@ Func _Nexus_SingleItemInfo($infoType, $param1 = 0, $param2 = 0)
                 Return SetError(3, 0, 0)
             EndIf
 
-            Local $aResult = _ParseItemDetails($intValues, $stringValues)
+            Local $aResult = _ParseItemDetails($intValues);, $stringValues)
             _CleanupOutput()
             Return $aResult
 
         Case $SINGLE_ITEM_INFO_ALL_BY_BAG_AND_SLOT
             Local $intValues = _GetTypedValuesByType($VALUE_TYPE_INT)
-            Local $stringValues = _GetTypedValuesByType($VALUE_TYPE_STRING)
+;~             Local $stringValues = _GetTypedValuesByType($VALUE_TYPE_STRING)
 
             If @error Or UBound($intValues) < 1 Then
                 _CleanupOutput()
@@ -288,7 +288,7 @@ Func _Nexus_SingleItemInfo($infoType, $param1 = 0, $param2 = 0)
             Local $aResult[$bagsCount]
 
             Local $intIndex = 1
-            Local $strIndex = 0
+;~             Local $strIndex = 0
 
             For $i = 0 To $bagsCount - 1
                 If $intIndex + 3 >= UBound($intValues) Then
@@ -314,9 +314,9 @@ Func _Nexus_SingleItemInfo($infoType, $param1 = 0, $param2 = 0)
                     Local $bagAndItems[2]
                     $bagAndItems[0] = $bagData
 
-                    Local $items[$iItemsCount][6]
+                    Local $items[$iItemsCount][5]
                     For $j = 0 To $iItemsCount - 1
-                        If $intIndex + 4 >= UBound($intValues) Or $strIndex >= UBound($stringValues) Then
+                        If $intIndex + 4 >= UBound($intValues) Then ;Or $strIndex >= UBound($stringValues) Then
                             ExitLoop
                         EndIf
 
@@ -325,10 +325,10 @@ Func _Nexus_SingleItemInfo($infoType, $param1 = 0, $param2 = 0)
                         $items[$j][2] = $intValues[$intIndex + 2] ; model_id
                         $items[$j][3] = $intValues[$intIndex + 3] ; type
                         $items[$j][4] = $intValues[$intIndex + 4] ; quantity
-                        $items[$j][5] = $stringValues[$strIndex]  ; name
+;~                         $items[$j][5] = $stringValues[$strIndex]  ; name
 
                         $intIndex += 5
-                        $strIndex += 1
+;~                         $strIndex += 1
                     Next
 
                     $bagAndItems[1] = $items
@@ -356,7 +356,7 @@ Func _Nexus_BagItemsInfo($bagIndex)
     If Not $result Then Return SetError(2, 0, 0)
 
     Local $intValues = _GetTypedValuesByType($VALUE_TYPE_INT)
-    Local $stringValues = _GetTypedValuesByType($VALUE_TYPE_STRING)
+;~     Local $stringValues = _GetTypedValuesByType($VALUE_TYPE_STRING)
 
     If @error Or UBound($intValues) < 6 Then
         _CleanupOutput()
@@ -384,12 +384,12 @@ Func _Nexus_BagItemsInfo($bagIndex)
     $aResult[0] = $bagInfo
 
     If $validItems > 0 Then
-        Local $items[$validItems][9]
+        Local $items[$validItems][7]
         Local $intIndex = 6
-        Local $strIndex = 0
+;~         Local $strIndex = 0
 
         For $i = 0 To $validItems - 1
-            If $intIndex + 6 >= UBound($intValues) Or $strIndex + 1 >= UBound($stringValues) Then
+            If $intIndex + 6 >= UBound($intValues) Then ;Or $strIndex + 1 >= UBound($stringValues) Then
                 ExitLoop
             EndIf
 
@@ -400,11 +400,11 @@ Func _Nexus_BagItemsInfo($bagIndex)
             $items[$i][4] = $intValues[$intIndex + 4] ; quantity
             $items[$i][5] = $intValues[$intIndex + 5] ; value
             $items[$i][6] = $intValues[$intIndex + 6] ; equipped
-            $items[$i][7] = $stringValues[$strIndex]     ; name
-            $items[$i][8] = $stringValues[$strIndex + 1] ; complete_name
+;~             $items[$i][7] = $stringValues[$strIndex]     ; name
+;~             $items[$i][8] = $stringValues[$strIndex + 1] ; complete_name
 
             $intIndex += 7
-            $strIndex += 2
+;~             $strIndex += 2
         Next
 
         $aResult[1] = $items
@@ -415,8 +415,8 @@ Func _Nexus_BagItemsInfo($bagIndex)
 EndFunc
 
 ; Helper function to parse item details
-Func _ParseItemDetails($intValues, $stringValues)
-    Local $aResult[30]
+Func _ParseItemDetails($intValues);, $stringValues)
+    Local $aResult[27]
 
     $aResult[0] = $intValues[0]  ; item_id
     $aResult[1] = $intValues[1]  ; agent_id
@@ -448,9 +448,9 @@ Func _ParseItemDetails($intValues, $stringValues)
     $aResult[17] = $intValues[21] <> 0  ; is_material
     $aResult[18] = $intValues[22] <> 0  ; is_zcoin
 
-    $aResult[19] = $stringValues[0]     ; customized
-    $aResult[20] = $stringValues[1]     ; name
-    $aResult[21] = $stringValues[2]     ; complete_name
+;~     $aResult[19] = $stringValues[0]     ; customized
+;~     $aResult[20] = $stringValues[1]     ; name
+;~     $aResult[21] = $stringValues[2]     ; complete_name
 
     ; Mods
     Local $modCount = $intValues[23]

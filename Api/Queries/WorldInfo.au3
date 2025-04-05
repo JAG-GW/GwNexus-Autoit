@@ -346,7 +346,7 @@ Func _Nexus_NPCInfo($infoType, $param = 0)
 
         Case $NPC_INFO_BY_MODEL_ID, $NPC_INFO_HENCHMEN, $NPC_INFO_HEROES
 			Local $intValues = _GetTypedValuesByType($VALUE_TYPE_INT)
-			Local $stringValues = _GetTypedValuesByType($VALUE_TYPE_STRING)
+;~ 			Local $stringValues = _GetTypedValuesByType($VALUE_TYPE_STRING)
 
 			If @error Or UBound($intValues) < 1 Then
 				_CleanupOutput()
@@ -355,11 +355,11 @@ Func _Nexus_NPCInfo($infoType, $param = 0)
 
 			Local $npcCount = $intValues[0]
 			; Create a 2D array to store all NPC information
-			Local $aResult[$npcCount + 1][8]
+			Local $aResult[$npcCount + 1][7]
 			$aResult[0][0] = $npcCount
 
 			Local $intIndex = 1
-			Local $stringIndex = 0
+;~ 			Local $stringIndex = 0
 
 			For $i = 1 To $npcCount
 				$aResult[$i][0] = $intValues[$intIndex]      ; model_file_id
@@ -368,11 +368,11 @@ Func _Nexus_NPCInfo($infoType, $param = 0)
 				$aResult[$i][3] = $intValues[$intIndex + 3]  ; npc_flags
 				$aResult[$i][4] = $intValues[$intIndex + 4]  ; primary
 				$aResult[$i][5] = $intValues[$intIndex + 5]  ; default_level
-				$aResult[$i][6] = $stringValues[$stringIndex]; name
-				$aResult[$i][7] = $intValues[$intIndex + 6]  ; files_count
+				;$aResult[$i][6] = $stringValues[$stringIndex]; name
+				$aResult[$i][6] = $intValues[$intIndex + 6]  ; files_count
 
 				$intIndex += 7   ; 7 integer values per NPC
-				$stringIndex += 1  ; 1 string value per NPC
+;~ 				$stringIndex += 1  ; 1 string value per NPC
 			Next
 
 			_CleanupOutput()
@@ -729,7 +729,7 @@ EndFunc
 ; Helper function to parse all NPCs
 Func _ParseAllNPCs()
     Local $intValues = _GetTypedValuesByType($VALUE_TYPE_INT)
-    Local $stringValues = _GetTypedValuesByType($VALUE_TYPE_STRING)
+;~     Local $stringValues = _GetTypedValuesByType($VALUE_TYPE_STRING)
 
     If @error Or UBound($intValues) < 1 Then
         _CleanupOutput()
@@ -738,11 +738,11 @@ Func _ParseAllNPCs()
 
     Local $npcCount = $intValues[0]
     ; Create a 2D array to store all NPC information
-    Local $aResult[$npcCount + 1][8]
+    Local $aResult[$npcCount + 1][7]
     $aResult[0][0] = $npcCount
 
     Local $intIndex = 1
-    Local $stringIndex = 0
+;~     Local $stringIndex = 0
 
     For $i = 1 To $npcCount
         $aResult[$i][0] = $intValues[$intIndex]      ; model_file_id
@@ -751,11 +751,11 @@ Func _ParseAllNPCs()
         $aResult[$i][3] = $intValues[$intIndex + 3]  ; npc_flags
         $aResult[$i][4] = $intValues[$intIndex + 4]  ; primary
         $aResult[$i][5] = $intValues[$intIndex + 5]  ; default_level
-        $aResult[$i][6] = $stringValues[$stringIndex]; name
-        $aResult[$i][7] = $intValues[$intIndex + 6]  ; files_count
+;~         $aResult[$i][6] = $stringValues[$stringIndex]; name
+        $aResult[$i][6] = $intValues[$intIndex + 6]  ; files_count
 
         $intIndex += 7   ; 7 integer values per NPC
-        $stringIndex += 1  ; 1 string value per NPC
+;~         $stringIndex += 1  ; 1 string value per NPC
     Next
 
     _CleanupOutput()

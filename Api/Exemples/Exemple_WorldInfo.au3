@@ -419,7 +419,7 @@ Func GetNPCInfo()
                 UpdateStatus("Error retrieving all NPCs.")
             Else
                 DisplayNPCsInList($npcs)
-                UpdateStatus("Retrieved " & $npcs[0] & " NPCs.")
+                UpdateStatus("Retrieved " & $npcs[0][0] & " NPCs.")
             EndIf
 
         Case "Henchmen"
@@ -428,7 +428,7 @@ Func GetNPCInfo()
                 UpdateStatus("Error retrieving henchmen.")
             Else
                 DisplayNPCsInList($npcs)
-                UpdateStatus("Retrieved " & $npcs[0] & " henchmen.")
+                UpdateStatus("Retrieved " & $npcs[0][0] & " henchmen.")
             EndIf
 
         Case "Heroes"
@@ -437,7 +437,7 @@ Func GetNPCInfo()
                 UpdateStatus("Error retrieving heroes.")
             Else
                 DisplayNPCsInList($npcs)
-                UpdateStatus("Retrieved " & $npcs[0] & " heroes.")
+                UpdateStatus("Retrieved " & $npcs[0][0] & " heroes.")
             EndIf
     EndSwitch
 EndFunc
